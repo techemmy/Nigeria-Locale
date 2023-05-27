@@ -1,4 +1,7 @@
+const PORT: string = process.env.PORT ?? '5000'
+const MONGO_URI: string = process.env.MONGO_URI ?? ''
+
 export default {
-  PORT: process.env.PORT,
-  MONGO_URI: process.env.MONGO_URI
+  PORT,
+  MONGO_URI
 }
