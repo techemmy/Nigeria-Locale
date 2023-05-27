@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from 'express'
 import User, { IUser } from '../models/user.model'
 import { HydratedDocument } from 'mongoose'
+import jwt from 'jsonwebtoken'
+import config from '../config'
 
 export async function signup(req: Request, res: Response, next: NextFunction) {
   try {
@@ -8,7 +10,11 @@ export async function signup(req: Request, res: Response, next: NextFunction) {
 
     const user: HydratedDocument<IUser> = new User({ username, password })
     const userAPIKey = await user.getAPIKey()
-    await user.save()
+    // await user.save()
+
+    const payload = { id: user.id, username: user.username }
+    const JWToken = jwt.sign(payload, config.JWT_Secret, { expiresIn: '7d' })
+    console.log(JWToken)
 
     return res.status(201).json({
       success: true,
