@@ -32,8 +32,7 @@ userSchema.methods.getAPIKey = async function () {
 }
 
 userSchema.methods.verifyAPIKey = async function (APIKey: string) {
-  const isUserAPIKey = verifyAPIKey(APIKey, this.APIKey)
-  return isUserAPIKey
+  return APIKey === this.APIKey
 }
 
 export default model<IUser>('User', userSchema)
