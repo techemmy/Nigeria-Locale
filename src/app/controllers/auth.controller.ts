@@ -10,18 +10,18 @@ export async function signup(req: Request, res: Response, next: NextFunction) {
 
     const user: HydratedDocument<IUser> = new User({ username, password })
     const userAPIKey = await user.getAPIKey()
-    // await user.save()
+    await user.save()
 
     const payload = { id: user.id, username: user.username }
-    const JWToken = jwt.sign(payload, config.JWT_Secret, { expiresIn: '7d' })
-    console.log(JWToken)
+    const loginToken = jwt.sign(payload, config.JWT_Secret, { expiresIn: '7d' })
 
     return res.status(201).json({
       success: true,
       message: 'signup successful',
       data: {
         userAPIKey,
-        Note: `Copy your key and save it. We won't show it to you again`
+        Note: `Copy your key and save it. We won't show it to you again`,
+        loginToken
       }
     })
   } catch (error) {
