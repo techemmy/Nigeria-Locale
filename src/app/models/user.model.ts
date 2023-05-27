@@ -7,7 +7,7 @@ export interface IUser {
   APIKey: string
   verifyPassword(password: string): boolean
   getAPIKey(): string
-  verifyAPIKey(APIKey: string): string
+  verifyAPIKey(APIKey: string): boolean
 }
 
 const userSchema = new Schema<IUser>({
