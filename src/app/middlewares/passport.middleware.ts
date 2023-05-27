@@ -1,7 +1,8 @@
 import { PassportStatic } from 'passport'
 import { Strategy as JwtStrategy } from 'passport-jwt'
 import { ExtractJwt } from 'passport-jwt'
-import userModel from '../models/user.model'
+import userModel, { IUser } from '../models/user.model'
+import { HydratedDocument } from 'mongoose'
 
 export default function (passport: PassportStatic) {
   passport.use(
@@ -11,7 +12,9 @@ export default function (passport: PassportStatic) {
         secretOrKey: process.env.JWT_SECRET
       },
       async (payload, done) => {
-        const user = await userModel.findOne({ _id: payload.id })
+        const user: HydratedDocument<IUser> | null = await userModel.findOne({
+          _id: payload.id
+        })
         if (user) {
           return done(null, user)
         } else {
