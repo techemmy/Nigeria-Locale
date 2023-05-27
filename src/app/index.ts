@@ -6,6 +6,7 @@ import passport from 'passport'
 import bodyParser from 'body-parser'
 
 import authRouter from './routes/auth.route'
+import locationAPIRouter from './routes/location.route'
 import passportMiddleware from './middlewares/passport.middleware'
 import errorHandlerMiddleware from './middlewares/errorHandler.middleware'
 
@@ -26,6 +27,8 @@ app.get(
 )
 
 app.use('/auth', authRouter)
+app.use('/api/v1/', locationAPIRouter)
+
 app.use(errorHandlerMiddleware)
 
 export default app
