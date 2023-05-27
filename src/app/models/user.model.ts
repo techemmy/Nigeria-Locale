@@ -1,6 +1,5 @@
 import { Schema, model } from 'mongoose'
 import bcrypt from 'bcrypt'
-import { generateAPIKey, verifyAPIKey } from '../utils/APIKey.utils'
 
 export interface IUser {
   username: string
@@ -26,9 +25,9 @@ userSchema.methods.verifyPassword = async function (password: string) {
 }
 
 userSchema.methods.getAPIKey = async function () {
-  const key = await generateAPIKey(this.username)
-  this.APIKey = key
-  return key
+  const APIKey = await bcrypt.hash(this.username, 10)
+  this.APIKey = APIKey
+  return APIKey
 }
 
 userSchema.methods.verifyAPIKey = async function (APIKey: string) {
