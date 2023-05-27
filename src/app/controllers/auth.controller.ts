@@ -1,9 +1,8 @@
 import { NextFunction, Request, Response } from 'express'
 import User, { IUser } from '../models/user.model'
 import { HydratedDocument } from 'mongoose'
-import jwt from 'jsonwebtoken'
-import config from '../config'
 import userModel from '../models/user.model'
+import { generateJWTLoginToken } from '../utils'
 
 export async function signup(req: Request, res: Response, next: NextFunction) {
   try {
@@ -13,8 +12,7 @@ export async function signup(req: Request, res: Response, next: NextFunction) {
     const userAPIKey = await user.getAPIKey()
     await user.save()
 
-    const payload = { id: user.id, username: user.username }
-    const loginToken = jwt.sign(payload, config.JWT_Secret, { expiresIn: '7d' })
+    const loginToken = generateJWTLoginToken(user.id, user.username)
 
     return res.status(201).json({
       success: true,
@@ -33,7 +31,9 @@ export async function signup(req: Request, res: Response, next: NextFunction) {
 export async function login(req: Request, res: Response, next: NextFunction) {
   try {
     const { username, password } = req.body
-    const user = await userModel.findOne({ username })
+    const user: HydratedDocument<IUser> | null = await userModel.findOne({
+      username
+    })
     const isUserPasswordCorrect = await user?.verifyPassword(password)
 
     if (!isUserPasswordCorrect) {
@@ -45,10 +45,8 @@ export async function login(req: Request, res: Response, next: NextFunction) {
       })
     }
 
-    const payload = { id: user?.id, username: user?.username }
-    const loginToken = jwt.sign(payload, config.JWT_Secret, {
-      expiresIn: '7d'
-    })
+    const loginToken = generateJWTLoginToken(user?.id, username)
+
     return res.status(200).json({
       success: true,
       message: 'login succesful',
