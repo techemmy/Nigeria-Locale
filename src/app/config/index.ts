@@ -1,7 +1,9 @@
-const PORT: string = process.env.PORT ?? '5000'
-const MONGO_URI: string = process.env.MONGO_URI ?? ''
+const PORT = process.env.PORT
+const MONGO_URI = process.env.MONGO_URI ?? ''
+const JWT_Secret = process.env.JWT_SECRET
 
 export default {
   PORT,
-  MONGO_URI
+  MONGO_URI,
+  JWT_Secret
 }
