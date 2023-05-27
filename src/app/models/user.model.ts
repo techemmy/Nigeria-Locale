@@ -4,7 +4,8 @@ import bcrypt from 'bcrypt'
 export interface IUser {
   username: string
   password: string
-  APIkey: string
+  APIKey: string
+  verifyPassword(password: string): boolean
   getAPIKey(): string
   verifyAPIKey(APIKey: string): string
 }
@@ -12,7 +13,7 @@ export interface IUser {
 const userSchema = new Schema<IUser>({
   username: { type: String, unique: true, required: true },
   password: { type: String, required: true },
-  APIkey: String
+  APIKey: String
 })
 
 userSchema.pre('save', async function () {
