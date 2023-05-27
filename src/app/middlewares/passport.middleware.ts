@@ -11,7 +11,6 @@ export default function (passport: PassportStatic) {
         secretOrKey: process.env.JWT_SECRET
       },
       async (payload, done) => {
-        console.log('Payload:', payload)
         const user = await userModel.findOne({ _id: payload.id })
         if (user) {
           return done(null, user)
