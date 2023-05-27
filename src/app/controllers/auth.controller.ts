@@ -13,7 +13,10 @@ export async function signup(req: Request, res: Response, next: NextFunction) {
     return res.status(201).json({
       success: true,
       message: 'signup successful',
-      data: { userAPIKey }
+      data: {
+        userAPIKey,
+        Note: `Copy your key and save it. We won't show it to you again`
+      }
     })
   } catch (error) {
     return next(error)
