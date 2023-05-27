@@ -4,6 +4,7 @@ import { HydratedDocument } from 'mongoose'
 import userModel from '../models/user.model'
 import { generateJWTLoginToken } from '../utils'
 import signupValidator from '../validators/signup.validator'
+import loginValidator from '../validators/login.validator'
 
 export async function signup(req: Request, res: Response, next: NextFunction) {
   try {
@@ -31,7 +32,9 @@ export async function signup(req: Request, res: Response, next: NextFunction) {
 
 export async function login(req: Request, res: Response, next: NextFunction) {
   try {
+    await loginValidator.validateAsync(req.body)
     const { username, password } = req.body
+
     const user: HydratedDocument<IUser> | null = await userModel.findOne({
       username
     })
@@ -46,7 +49,7 @@ export async function login(req: Request, res: Response, next: NextFunction) {
       })
     }
 
-    const loginToken = generateJWTLoginToken(user?.id, username)
+    const loginToken = generateJWTLoginToken(user?.id, user?.username)
 
     return res.status(200).json({
       success: true,
