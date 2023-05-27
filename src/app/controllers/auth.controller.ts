@@ -3,12 +3,13 @@ import User, { IUser } from '../models/user.model'
 import { HydratedDocument } from 'mongoose'
 import userModel from '../models/user.model'
 import { generateJWTLoginToken } from '../utils'
+import signupValidator from '../validators/signup.validator'
 
 export async function signup(req: Request, res: Response, next: NextFunction) {
   try {
-    const { username, password } = req.body
+    await signupValidator.validateAsync(req.body)
 
-    const user: HydratedDocument<IUser> = new User({ username, password })
+    const user: HydratedDocument<IUser> = new User(req.body)
     const userAPIKey = await user.getAPIKey()
     await user.save()
 
