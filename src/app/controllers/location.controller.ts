@@ -58,7 +58,7 @@ export function getStates(req: Request, res: Response, next: NextFunction) {
 
     return res.status(200).json({
       success: true,
-      message: 'List of Regions',
+      message: 'List of States',
       data: {
         states: [...states.values()]
       }
