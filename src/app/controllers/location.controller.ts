@@ -2,6 +2,9 @@ import { NextFunction, Request, Response } from 'express'
 import bcrypt from 'bcrypt'
 import userModel, { IUser } from '../models/user.model'
 import { HydratedDocument } from 'mongoose'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import nigeriaLocations, { NigeriaLocation } from 'nigeria-geo'
 
 export async function getNewAPIKey(
   req: Request,
@@ -18,6 +21,26 @@ export async function getNewAPIKey(
       data: {
         APIKey: newAPIKey,
         Note: `Copy your key and save it. We won't show it to you again`
+      }
+    })
+  } catch (error) {
+    return next(error)
+  }
+}
+
+export function getRegions(req: Request, res: Response, next: NextFunction) {
+  try {
+    const regions: Set<string> = new Set()
+
+    for (const location of nigeriaLocations.all()) {
+      regions.add(location.geo_politcal_zone)
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: 'List of Regions',
+      data: {
+        regions: [...regions.values()]
       }
     })
   } catch (error) {
