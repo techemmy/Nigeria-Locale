@@ -47,3 +47,23 @@ export function getRegions(req: Request, res: Response, next: NextFunction) {
     return next(error)
   }
 }
+
+export function getStates(req: Request, res: Response, next: NextFunction) {
+  try {
+    const states: Set<string> = new Set()
+
+    for (const location of nigeriaLocations.all()) {
+      states.add(location.state)
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: 'List of Regions',
+      data: {
+        states: [...states.values()]
+      }
+    })
+  } catch (error) {
+    return next(error)
+  }
+}
