@@ -63,3 +63,27 @@ export function getStates(req: Request, res: Response, next: NextFunction) {
     return next(error)
   }
 }
+
+export function getLocalGovernmentArea(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    let LGAs: string[] = []
+    nigeriaLocations.all().forEach((state: nigeriaLocations.State) => {
+      LGAs = LGAs.concat(state.lgas)
+    })
+    LGAs.sort()
+    return res.status(200).json({
+      success: true,
+      message: 'List of Local Government Areas (LGAs)',
+      data: {
+        numberOfLGAs: LGAs.length,
+        LGAs
+      }
+    })
+  } catch (error) {
+    return next(error)
+  }
+}
