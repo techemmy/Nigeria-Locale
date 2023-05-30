@@ -17,4 +17,10 @@ locationAPIRouter.get(
   locationController.getRegions
 )
 
+locationAPIRouter.get(
+  '/states',
+  confirmAPIKeyMiddleware,
+  locationController.getStates
+)
+
 export default locationAPIRouter
