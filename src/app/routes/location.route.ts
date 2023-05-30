@@ -23,4 +23,10 @@ locationAPIRouter.get(
   locationController.getStates
 )
 
+locationAPIRouter.get(
+  '/LGAs',
+  confirmAPIKeyMiddleware,
+  locationController.getLocalGovernmentArea
+)
+
 export default locationAPIRouter
