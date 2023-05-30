@@ -40,7 +40,7 @@ export function getRegions(req: Request, res: Response, next: NextFunction) {
       success: true,
       message: 'List of Regions',
       data: {
-        regions: [...regions.values()]
+        regions: [...regions]
       }
     })
   } catch (error) {
@@ -60,7 +60,7 @@ export function getStates(req: Request, res: Response, next: NextFunction) {
       success: true,
       message: 'List of States',
       data: {
-        states: [...states.values()]
+        states: [...states]
       }
     })
   } catch (error) {
