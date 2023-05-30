@@ -50,17 +50,13 @@ export function getRegions(req: Request, res: Response, next: NextFunction) {
 
 export function getStates(req: Request, res: Response, next: NextFunction) {
   try {
-    const states: Set<string> = new Set()
-
-    for (const location of nigeriaLocations.all()) {
-      states.add(location.state)
-    }
-
+    const states: NigeriaLocation[] = nigeriaLocations.states()
     return res.status(200).json({
       success: true,
       message: 'List of States',
       data: {
-        states: [...states]
+        numberOfStates: states.length,
+        states
       }
     })
   } catch (error) {
