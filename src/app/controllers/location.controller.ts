@@ -36,11 +36,14 @@ export function getRegions(req: Request, res: Response, next: NextFunction) {
       regions.add(location.geo_politcal_zone)
     }
 
+    const regionsArray = Array.from(regions)
+
     return res.status(200).json({
       success: true,
       message: 'List of Regions',
       data: {
-        regions: [...regions]
+        numberOfRegions: regionsArray.length,
+        regions: regionsArray
       }
     })
   } catch (error) {
