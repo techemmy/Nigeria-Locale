@@ -15,7 +15,7 @@ export default function (
     return res.status(400).json({
       success: false,
       message: error.message,
-      error_code: 400,
+      errorCode: 400,
       data: {}
     })
   }
@@ -23,7 +23,7 @@ export default function (
   return res.json(500).json({
     success: false,
     message: error,
-    error_code: 500,
+    errorCode: 500,
     data: {}
   })
 }

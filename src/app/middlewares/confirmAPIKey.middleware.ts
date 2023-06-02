@@ -14,7 +14,7 @@ export default async function (
       message:
         'API Key required in the Bearer Authorization! Sign up to get a key',
       data: {},
-      error_code: 401
+      errorCode: 401
     })
   }
 
@@ -27,7 +27,7 @@ export default async function (
       message:
         'Invalid API Key. Have you forgotten your API Key. Regerate another one at `/get-new-key` route',
       data: {},
-      error_code: 401
+      errorCode: 401
     })
   }
 

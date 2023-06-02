@@ -16,7 +16,7 @@ export async function signup(req: Request, res: Response, next: NextFunction) {
         success: false,
         message: 'User already exists',
         data: {},
-        error_code: 400
+        errorCode: 400
       })
     }
 
@@ -55,7 +55,7 @@ export async function login(req: Request, res: Response, next: NextFunction) {
         success: false,
         message: 'Invalid credentials',
         data: {},
-        error_code: 401
+        errorCode: 401
       })
     }
 
