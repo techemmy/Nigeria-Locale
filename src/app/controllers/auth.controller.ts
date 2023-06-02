@@ -10,6 +10,16 @@ export async function signup(req: Request, res: Response, next: NextFunction) {
   try {
     await signupValidator.validateAsync(req.body)
 
+    const isUserFound = await userModel.findOne({ email: req.body.email })
+    if (isUserFound) {
+      return res.status(400).json({
+        success: false,
+        message: 'User already exists',
+        data: {},
+        error_code: 400
+      })
+    }
+
     const user: HydratedDocument<IUser> = new User(req.body)
     const userAPIKey = await user.getAPIKey()
     await user.save()
