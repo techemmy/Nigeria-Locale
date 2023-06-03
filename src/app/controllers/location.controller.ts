@@ -42,8 +42,8 @@ export function getRegions(req: Request, res: Response, next: NextFunction) {
       success: true,
       message: 'List of Regions',
       data: {
-        numberOfRegions: regionsArray.length,
-        regions: regionsArray
+        size: regionsArray.length,
+        result: regionsArray
       }
     })
   } catch (error) {
@@ -58,8 +58,8 @@ export function getStates(req: Request, res: Response, next: NextFunction) {
       success: true,
       message: 'List of States',
       data: {
-        numberOfStates: states.length,
-        states
+        size: states.length,
+        result: states
       }
     })
   } catch (error) {
@@ -84,8 +84,8 @@ export function getLocalGovernmentArea(
       success: true,
       message: 'List of Local Government Areas (LGAs)',
       data: {
-        numberOfLGAs: sortedLGAs.length,
-        LGAs: sortedLGAs
+        size: sortedLGAs.length,
+        result: sortedLGAs
       }
     })
   } catch (error) {
