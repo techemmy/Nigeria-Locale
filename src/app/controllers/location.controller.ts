@@ -108,7 +108,7 @@ export function search(req: Request, res: Response, next: NextFunction) {
       })
     }
 
-    const data: {
+    const filteredData: {
       region?: string
       state?: string
       lgas?: string[]
@@ -118,28 +118,21 @@ export function search(req: Request, res: Response, next: NextFunction) {
 
     const states: nigeriaLocations.State[] = nigeriaLocations.all()
 
-    if (category === 'region') {
-      for (const state of states) {
-        const region = state.geo_politcal_zone
-        data.push({
-          region,
-          state: state.state,
+    for (const state of states) {
+      if (category === 'region') {
+        filteredData.push({
+          region: state.geo_politcal_zone,
           metadata: state
         })
-      }
-    } else if (category === 'state') {
-      for (const state of states) {
-        const lgas = state.lgas
-        data.push({
+      } else if (category === 'state') {
+        filteredData.push({
           state: state.state,
-          lgas,
+          lgas: state.lgas,
           metadata: state
         })
-      }
-    } else if (category === 'lga') {
-      for (const state of states) {
+      } else if (category === 'lga') {
         for (const lga of state.lgas) {
-          data.push({
+          filteredData.push({
             state: state.state,
             lga,
             metadata: state
@@ -148,17 +141,20 @@ export function search(req: Request, res: Response, next: NextFunction) {
       }
     }
 
-    const filteredData = data.filter(
+    const lowercaseQuery = query.toLowerCase()
+    const data = filteredData.filter(
       (item) =>
-        item.region?.toLowerCase().includes(query.toLowerCase()) ||
-        item.state?.toLowerCase().includes(query.toLowerCase()) ||
-        item.lga?.toLowerCase().includes(query.toLowerCase())
+        item.region?.toLowerCase().includes(lowercaseQuery) ||
+        item.state?.toLowerCase().includes(lowercaseQuery) ||
+        item.lga?.toLowerCase().includes(lowercaseQuery)
     )
     return res.status(200).json({
       success: true,
       message: 'Search results',
-      dataSize: filteredData.length,
-      data: filteredData
+      data: {
+        size: data.length,
+        result: data
+      }
     })
   } catch (error) {
     return next(error)
