@@ -29,4 +29,10 @@ locationAPIRouter.get(
   locationController.getLocalGovernmentArea
 )
 
+locationAPIRouter.get(
+  '/search',
+  confirmAPIKeyMiddleware,
+  locationController.search
+)
+
 export default locationAPIRouter
