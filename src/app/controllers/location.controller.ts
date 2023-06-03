@@ -92,3 +92,75 @@ export function getLocalGovernmentArea(
     return next(error)
   }
 }
+
+export function search(req: Request, res: Response, next: NextFunction) {
+  const searchCategories = ['region', 'state', 'lga']
+  const { category, query } = req.query as { category: string; query: string }
+
+  try {
+    const isValidCategory = searchCategories.includes(category)
+    if (!isValidCategory) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid Search Category',
+        errorCode: 400,
+        data: {}
+      })
+    }
+
+    const data: {
+      region?: string
+      state?: string
+      lgas?: string[]
+      lga?: string
+      metadata?: nigeriaLocations.State
+    }[] = []
+
+    const states: nigeriaLocations.State[] = nigeriaLocations.all()
+
+    if (category === 'region') {
+      for (const state of states) {
+        const region = state.geo_politcal_zone
+        data.push({
+          region,
+          state: state.state,
+          metadata: state
+        })
+      }
+    } else if (category === 'state') {
+      for (const state of states) {
+        const lgas = state.lgas
+        data.push({
+          state: state.state,
+          lgas,
+          metadata: state
+        })
+      }
+    } else if (category === 'lga') {
+      for (const state of states) {
+        for (const lga of state.lgas) {
+          data.push({
+            state: state.state,
+            lga,
+            metadata: state
+          })
+        }
+      }
+    }
+
+    const filteredData = data.filter(
+      (item) =>
+        item.region?.toLowerCase().includes(query.toLowerCase()) ||
+        item.state?.toLowerCase().includes(query.toLowerCase()) ||
+        item.lga?.toLowerCase().includes(query.toLowerCase())
+    )
+    return res.status(200).json({
+      success: true,
+      message: 'Search results',
+      dataSize: filteredData.length,
+      data: filteredData
+    })
+  } catch (error) {
+    return next(error)
+  }
+}
