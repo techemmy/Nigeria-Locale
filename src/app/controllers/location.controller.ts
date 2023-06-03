@@ -73,17 +73,19 @@ export function getLocalGovernmentArea(
   next: NextFunction
 ) {
   try {
-    let LGAs: string[] = []
-    nigeriaLocations.all().forEach((state: nigeriaLocations.State) => {
-      LGAs = LGAs.concat(state.lgas)
-    })
-    LGAs.sort()
+    const LGAs: Set<string> = new Set<string>(
+      nigeriaLocations
+        .all()
+        .flatMap((state: nigeriaLocations.State) => state.lgas)
+    )
+    const sortedLGAs: string[] = Array.from(LGAs).sort()
+
     return res.status(200).json({
       success: true,
       message: 'List of Local Government Areas (LGAs)',
       data: {
-        numberOfLGAs: LGAs.length,
-        LGAs
+        numberOfLGAs: sortedLGAs.length,
+        LGAs: sortedLGAs
       }
     })
   } catch (error) {
