@@ -5,6 +5,7 @@ import { HydratedDocument } from 'mongoose'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import nigeriaLocations, { NigeriaLocation } from 'nigeria-geo'
+import { redisClient } from '../database'
 
 export async function getNewAPIKey(
   req: Request,
@@ -93,7 +94,7 @@ export function getLocalGovernmentArea(
   }
 }
 
-export function search(req: Request, res: Response, next: NextFunction) {
+export async function search(req: Request, res: Response, next: NextFunction) {
   const searchCategories = ['region', 'state', 'lga']
   const { category, query } = req.query as { category: string; query: string }
 
@@ -148,13 +149,23 @@ export function search(req: Request, res: Response, next: NextFunction) {
         item.state?.toLowerCase().includes(lowercaseQuery) ||
         item.lga?.toLowerCase().includes(lowercaseQuery)
     )
-    return res.status(200).json({
-      success: true,
-      message: 'Search results',
+
+    const cacheData = {
+      category,
+      query,
       data: {
         size: data.length,
         result: data
       }
+    }
+    await redisClient.set(`${category}-${query}`, JSON.stringify(cacheData), {
+      EX: 86400,
+      NX: true
+    })
+    return res.status(200).json({
+      success: true,
+      message: 'Search results',
+      data: cacheData.data
     })
   } catch (error) {
     return next(error)

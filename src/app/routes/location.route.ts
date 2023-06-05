@@ -2,6 +2,7 @@ import express, { Router } from 'express'
 import * as locationController from '../controllers/location.controller'
 import passport from 'passport'
 import confirmAPIKeyMiddleware from '../middlewares/confirmAPIKey.middleware'
+import cacheDataMiddleware from '../middlewares/cacheData.middleware'
 
 const locationAPIRouter: Router = express.Router()
 
@@ -31,6 +32,7 @@ locationAPIRouter.get(
 
 locationAPIRouter.get(
   '/search',
+  cacheDataMiddleware,
   confirmAPIKeyMiddleware,
   locationController.search
 )
