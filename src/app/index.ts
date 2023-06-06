@@ -9,11 +9,13 @@ import authRouter from './routes/auth.route'
 import locationAPIRouter from './routes/location.route'
 import passportMiddleware from './middlewares/passport.middleware'
 import errorHandlerMiddleware from './middlewares/errorHandler.middleware'
+import loggerMiddleware from './middlewares/logger.middleware'
 
 require('dotenv').config()
 
 const app: Express = express()
 
+app.use(loggerMiddleware)
 app.use(bodyParser.urlencoded({ extended: true }))
 passportMiddleware(passport)
 
