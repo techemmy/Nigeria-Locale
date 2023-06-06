@@ -16,7 +16,7 @@ export default async function (
   }
 
   const parsedCache = JSON.parse(cachedData)
-  console.log(parsedCache, await redisClient.get(`${category}-${query}`))
+
   if (category === parsedCache?.category && query === parsedCache?.query) {
     return res.status(200).json({
       success: true,
