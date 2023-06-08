@@ -4,7 +4,7 @@ import userModel, { IUser } from '../models/user.model'
 import { HydratedDocument } from 'mongoose'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import nigeriaLocations, { NigeriaLocation } from 'nigeria-geo'
+import nigeriaLocations from 'nigeria-geo'
 import { redisClient } from '../database'
 
 export async function getNewAPIKey(
