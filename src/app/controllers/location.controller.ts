@@ -31,20 +31,18 @@ export async function getNewAPIKey(
 
 export function getRegions(req: Request, res: Response, next: NextFunction) {
   try {
-    const regions: Set<string> = new Set()
-
-    for (const location of nigeriaLocations.all()) {
-      regions.add(location.geo_politcal_zone)
-    }
-
-    const regionsArray = Array.from(regions)
+    const regions: Set<string> = new Set(
+      nigeriaLocations
+        .all()
+        .map((state: nigeriaLocations.State) => state.geo_politcal_zone)
+    )
 
     return res.status(200).json({
       success: true,
       message: 'List of Regions',
       data: {
-        size: regionsArray.length,
-        result: regionsArray
+        size: regions.size,
+        result: [...regions]
       }
     })
   } catch (error) {
