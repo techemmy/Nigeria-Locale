@@ -52,7 +52,7 @@ export function getRegions(req: Request, res: Response, next: NextFunction) {
 
 export function getStates(req: Request, res: Response, next: NextFunction) {
   try {
-    const states: NigeriaLocation[] = nigeriaLocations.states()
+    const states = nigeriaLocations.states()
     return res.status(200).json({
       success: true,
       message: 'List of States',
