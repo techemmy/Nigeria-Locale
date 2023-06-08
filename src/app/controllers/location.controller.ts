@@ -96,8 +96,8 @@ export async function search(req: Request, res: Response, next: NextFunction) {
   const { category, query } = req.query as { category: string; query: string }
 
   try {
-    const isValidCategory = searchCategories.includes(category)
-    if (!isValidCategory) {
+    // make sure category query from user is a valid one
+    if (!searchCategories.includes(category)) {
       return res.status(400).json({
         success: false,
         message: 'Invalid Search Category',
@@ -106,6 +106,7 @@ export async function search(req: Request, res: Response, next: NextFunction) {
       })
     }
 
+    // it is used to hold data based on the user's category
     const filteredData: {
       region?: string
       state?: string
@@ -116,6 +117,7 @@ export async function search(req: Request, res: Response, next: NextFunction) {
 
     const states: nigeriaLocations.State[] = nigeriaLocations.all()
 
+    // we push data into filteredData based on the user's category
     for (const state of states) {
       if (category === 'region') {
         filteredData.push({
@@ -139,6 +141,7 @@ export async function search(req: Request, res: Response, next: NextFunction) {
       }
     }
 
+    // then, we filter data based on the user's query on the category
     const lowercaseQuery = query.toLowerCase()
     const data = filteredData.filter(
       (item) =>
