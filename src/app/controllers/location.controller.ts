@@ -77,14 +77,13 @@ export function getLocalGovernmentArea(
         .all()
         .flatMap((state: nigeriaLocations.State) => state.lgas)
     )
-    const sortedLGAs: string[] = Array.from(LGAs).sort()
 
     return res.status(200).json({
       success: true,
       message: 'List of Local Government Areas (LGAs)',
       data: {
-        size: sortedLGAs.length,
-        result: sortedLGAs
+        size: LGAs.size,
+        result: [...LGAs]
       }
     })
   } catch (error) {
