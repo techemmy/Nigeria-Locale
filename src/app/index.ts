@@ -24,7 +24,7 @@ passportMiddleware(passport)
 app.get('/', (req: Request, res: Response) => {
   res.status(200).json({
     success: true,
-    message: `Navigate to https://${req.headers.host}/docs for more info`,
+    message: `Navigate to http://${req.headers.host}/docs for more info`,
     data: {}
   })
 })
