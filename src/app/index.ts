@@ -21,14 +21,13 @@ app.use(loggerMiddleware)
 app.use(bodyParser.urlencoded({ extended: true }))
 passportMiddleware(passport)
 
-app.get(
-  '/',
-  passport.authenticate('jwt', { session: false }),
-  (req: Request, res: Response) => {
-    const nl: NigeriaLocation = nigeriaLocations.all()
-    res.json(nl)
-  }
-)
+app.get('/', (req: Request, res: Response) => {
+  res.status(200).json({
+    success: true,
+    message: `Navigate to https://${req.headers.host}/docs for more info`,
+    data: {}
+  })
+})
 
 app.use('/auth', authRouter)
 app.use('/api/v1/', locationAPIRouter)
