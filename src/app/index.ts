@@ -1,7 +1,6 @@
 import express, { Express, Request, Response } from 'express'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import nigeriaLocations, { NigeriaLocation } from 'nigeria-geo'
 import passport from 'passport'
 import bodyParser from 'body-parser'
 
