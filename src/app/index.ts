@@ -17,6 +17,7 @@ const app: Express = express()
 
 app.use(rateLimiterMiddleware)
 app.use(loggerMiddleware)
+app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 passportMiddleware(passport)
 
