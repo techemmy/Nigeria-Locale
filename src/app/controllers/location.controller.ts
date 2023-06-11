@@ -158,10 +158,13 @@ export async function search(req: Request, res: Response, next: NextFunction) {
         result: data
       }
     }
-    await redisClient.set(`${category}-${query}`, JSON.stringify(cacheData), {
-      EX: 86400,
-      NX: true
-    })
+
+    if (data.length > 0) {
+      await redisClient.set(`${category}-${query}`, JSON.stringify(cacheData), {
+        EX: 86400,
+        NX: true
+      })
+    }
     return res.status(200).json({
       success: true,
       message: 'Search results',
