@@ -10,11 +10,23 @@ export async function signup(req: Request, res: Response, next: NextFunction) {
   try {
     await signupValidator.validateAsync(req.body)
 
-    const isUserFound = await userModel.findOne({ email: req.body.email })
-    if (isUserFound) {
+    const isUsernameExists = await userModel.findOne({
+      username: req.body.username
+    })
+    const isEmailExists = await userModel.findOne({ email: req.body.email })
+
+    if (isUsernameExists) {
       return res.status(400).json({
         success: false,
-        message: 'User already exists',
+        message: 'Username already exists',
+        data: {},
+        errorCode: 400
+      })
+    }
+    if (isEmailExists) {
+      return res.status(400).json({
+        success: false,
+        message: 'Email has been used!',
         data: {},
         errorCode: 400
       })
