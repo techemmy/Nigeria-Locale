@@ -54,7 +54,6 @@ export async function signup(req: Request, res: Response, next: NextFunction) {
 
 export async function login(req: Request, res: Response, next: NextFunction) {
   try {
-    await loginValidator.validateAsync(req.body)
     const { username, password } = req.body
 
     const user: HydratedDocument<IUser> | null = await userModel.findOne({
