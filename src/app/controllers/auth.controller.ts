@@ -4,7 +4,6 @@ import { HydratedDocument } from 'mongoose'
 import userModel from '../models/user.model'
 import { generateJWTLoginToken } from '../utils'
 import signupValidator from '../validators/signup.validator'
-import loginValidator from '../validators/login.validator'
 
 export async function signup(req: Request, res: Response, next: NextFunction) {
   try {
