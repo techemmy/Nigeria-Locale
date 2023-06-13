@@ -3,7 +3,6 @@ import User, { IUser } from '../models/user.model'
 import { HydratedDocument } from 'mongoose'
 import userModel from '../models/user.model'
 import { generateJWTLoginToken } from '../utils'
-import signupValidator from '../validators/signup.validator'
 
 export async function signup(req: Request, res: Response, next: NextFunction) {
   try {
