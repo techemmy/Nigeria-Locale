@@ -7,8 +7,6 @@ import signupValidator from '../validators/signup.validator'
 
 export async function signup(req: Request, res: Response, next: NextFunction) {
   try {
-    await signupValidator.validateAsync(req.body)
-
     const isUsernameExists = await userModel.findOne({
       username: req.body.username
     })
