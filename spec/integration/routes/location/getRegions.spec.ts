@@ -24,7 +24,7 @@ describe(`GET ${PATH}`, () => {
       .set('Authorization', `Bearer ${APIKey}`)
     expect(response.status).toBe(200)
     expect(response.body.success).toBeTruthy()
-    expect(response.body.data.size).toBeGreaterThanOrEqual(0)
+    expect(response.body.data.size).toBeGreaterThan(0)
     expect(response.body.data.result.length).toEqual(response.body.data.size)
   })
 
