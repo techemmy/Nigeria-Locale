@@ -31,6 +31,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Connect to Redis
+        run: node client.js
         env:
           REDIS_HOST: redis
           REDIS_PORT: 6379
