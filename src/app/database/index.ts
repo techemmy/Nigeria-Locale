@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 import * as redis from 'redis'
-import logger from '../utils/logger'
+import logger from '../utils/logger.util'
 
 let redisClient: redis.RedisClientType
 

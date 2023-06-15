@@ -1,7 +1,7 @@
 import app from './app'
 import config from './app/config'
 import { connectMongoDB, connectRedis } from './app/database'
-import logger from './app/utils/logger'
+import logger from './app/utils/logger.util'
 
 connectMongoDB(config.MONGO_URI)
 
