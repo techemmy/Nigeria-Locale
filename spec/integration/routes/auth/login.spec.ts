@@ -33,4 +33,36 @@ describe('POST /auth/login', () => {
     expect(response.body.data.loginToken).toBeDefined()
     expect(response.headers['content-type']).toContain('application/json')
   })
+
+  test('should fail to login if username is empty', async () => {
+    const response = await request(app)
+      .post('/auth/login')
+      .send({ username: '', password })
+    expect(response.body.success).toBeFalsy()
+    expect(response.body.data.loginToken).toBeUndefined()
+    expect(response.headers['content-type']).toContain('application/json')
+  })
+
+  test('should fail to login if password is empty', async () => {
+    const response = await request(app)
+      .post('/auth/login')
+      .send({ username, password: '' })
+    expect(response.body.success).toBeFalsy()
+    expect(response.body.data.loginToken).toBeUndefined()
+    expect(response.headers['content-type']).toContain('application/json')
+  })
+
+  test('should fail to login if username is not provided in request body', async () => {
+    const response = await request(app).post('/auth/login').send({ password })
+    expect(response.body.success).toBeFalsy()
+    expect(response.body.data.loginToken).toBeUndefined()
+    expect(response.headers['content-type']).toContain('application/json')
+  })
+
+  test('should fail to login if password is not provided in request body', async () => {
+    const response = await request(app).post('/auth/login').send({ username })
+    expect(response.body.success).toBeFalsy()
+    expect(response.body.data.loginToken).toBeUndefined()
+    expect(response.headers['content-type']).toContain('application/json')
+  })
 })
