@@ -1,4 +1,4 @@
-const redis = require("redis");
+import redis from 'redis'
 
 // Creates a new Redis client
 // If REDIS_HOST is not set, the default host is localhost
