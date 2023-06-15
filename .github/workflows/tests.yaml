@@ -13,12 +13,27 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    services:
+      redis:
+        # Docker Hub image
+        image: redis
+        # Set health checks to wait until redis has started
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     strategy:
       matrix:
         node-version: [18.16.0]
 
     steps:
       - uses: actions/checkout@v3
+      - name: Connect to Redis
+        env:
+          REDIS_HOST: redis
+          REDIS_PORT: 6379
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
