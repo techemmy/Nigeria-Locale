@@ -93,7 +93,8 @@ export function getLocalGovernmentArea(
 
 export async function search(req: Request, res: Response, next: NextFunction) {
   const searchCategories = ['region', 'state', 'lga']
-  const { category, query } = req.query as { category: string; query: string }
+  const category = req.query.category as string
+  const query: string = (req.query.query ?? '') as string
 
   try {
     // make sure category query from user is a valid one
