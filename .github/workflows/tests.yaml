@@ -31,7 +31,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Connect to Redis
-        run: node .github/workflows/client.js
+        run: npm install redis
         env:
           REDIS_HOST: redis
           REDIS_PORT: 6379
