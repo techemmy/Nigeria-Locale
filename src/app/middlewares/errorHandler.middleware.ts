@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
+import logger from '../utils/logger'
 
 export default function (
   error: Error,
@@ -6,7 +7,7 @@ export default function (
   res: Response,
   next: NextFunction
 ) {
-  console.log('An error occured:', error.message)
+  logger.log('error', error.message)
   if (res.headersSent) {
     return next(error)
   }
