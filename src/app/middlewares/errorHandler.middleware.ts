@@ -7,7 +7,7 @@ export default function (
   res: Response,
   next: NextFunction
 ) {
-  logger.log('error', error.message)
+  logger.error(error.message)
   if (res.headersSent) {
     return next(error)
   }
