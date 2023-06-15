@@ -26,4 +26,8 @@ export async function connectRedis() {
   return redisClient
 }
 
+export async function disconnectRedis() {
+  await redisClient.disconnect()
+}
+
 export { redisClient }
