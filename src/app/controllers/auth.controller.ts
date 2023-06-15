@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express'
 import User, { IUser } from '../models/user.model'
 import { HydratedDocument } from 'mongoose'
 import userModel from '../models/user.model'
-import { generateJWTLoginToken } from '../utils'
+import generateJWTLoginToken from '../utils/generateJWTLoginToken.util'
 
 export async function signup(req: Request, res: Response, next: NextFunction) {
   try {

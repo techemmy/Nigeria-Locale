@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
-import config from './config'
+import config from '../config'
 
-export function generateJWTLoginToken(
+export default function generateJWTLoginToken(
   userId: string | undefined,
   username: string | undefined
 ) {
