@@ -1,6 +1,7 @@
 import app from './app'
 import config from './app/config'
 import { connectMongoDB, connectRedis } from './app/database'
+import logger from './app/utils/logger'
 
 connectMongoDB(config.MONGO_URI)
 
@@ -9,7 +10,7 @@ void (async () => {
 })()
 
 app.listen(config.PORT, () => {
-  console.log(
+  logger.info(
     `⚡️[server]: Server is running at http://localhost:${config.PORT}`
   )
 })
