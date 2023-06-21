@@ -1,4 +1,4 @@
-import express, { Express, Request, Response } from 'express'
+import express, { Express, NextFunction, Request, Response } from 'express'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import passport from 'passport'
@@ -12,12 +12,22 @@ import errorHandlerMiddleware from './middlewares/errorHandler.middleware'
 import loggerMiddleware from './middlewares/logger.middleware'
 import rateLimiterMiddleware from './middlewares/rateLimiter.middleware'
 import swaggerDocument from './utils/loadSwaggerDocs.util'
+import { SwaggerDocRequest } from './typings/expressResponses'
 
 require('dotenv').config()
 
 const app: Express = express()
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+app.use(
+  '/api-docs',
+  function (req: SwaggerDocRequest, res: Response, next: NextFunction) {
+    swaggerDocument.host = req.get('host')
+    req.swaggerDoc = swaggerDocument
+    next()
+  },
+  swaggerUi.serveFiles(swaggerDocument),
+  swaggerUi.setup()
+)
 app.use(rateLimiterMiddleware)
 app.use(loggerMiddleware)
 app.use(bodyParser.json())
