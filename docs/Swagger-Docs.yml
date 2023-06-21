@@ -2,9 +2,9 @@ openapi: 3.1.0
 info:
   version: '1.0'
   title: Nigeria Locale
-  summary: 'It''s an API for geographic data of places in Nigeria. It is used to get or search for states, local government areas and regions. '
+  summary: "It's an API for geographic data of places in Nigeria. It is used to get or search for states, local government areas and regions. "
   description: |
-    Nigeria Locale is a developer tool for anyone who needs to know Nigeria, geographically at least. Nigeria Locale’s API shows you all of Nigeria’s regions, states, and local government areas(LGAs). Locale is looking to be a very useful tool for the thousands of businesses building for Nigeria’s 200M+ population size. 
+    Nigeria Locale is a developer tool for anyone who needs to know Nigeria, geographically at least. Nigeria Locale’s API shows you all of Nigeria’s regions, states, and local government areas(LGAs). Locale is looking to be a very useful tool for the thousands of businesses building for Nigeria’s 200M+ population size.
   contact:
     email: emmanueltopea@gmail.com
     name: Emmanuel Oloyede
@@ -12,8 +12,6 @@ info:
   license:
     url: 'https://www.mit.edu/~amini/LICENSE.md'
     name: MIT License
-servers:
-  - url: 'http://localhost:3000'
 paths:
   /auth/signup:
     post:
@@ -68,8 +66,6 @@ paths:
                     type: integer
                   data:
                     type: object
-      servers:
-        - url: 'http://localhost:3000'
   /auth/login:
     post:
       summary: User Login
@@ -133,8 +129,6 @@ paths:
                     type: object
                   errorCode:
                     type: integer
-      servers:
-        - url: 'http://localhost:3000'
 components:
   securitySchemes:
     Bearer:
