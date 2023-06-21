@@ -1,0 +1,177 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: Nigeria Locale
+  summary: 'It''s an API for geographic data of places in Nigeria. It is used to get or search for states, local government areas and regions. '
+  description: |
+    Nigeria Locale is a developer tool for anyone who needs to know Nigeria, geographically at least. Nigeria Locale’s API shows you all of Nigeria’s regions, states, and local government areas(LGAs). Locale is looking to be a very useful tool for the thousands of businesses building for Nigeria’s 200M+ population size. 
+  contact:
+    email: emmanueltopea@gmail.com
+    name: Emmanuel Oloyede
+    url: 'https://github.com/techemmy/nigeria-locale'
+  license:
+    url: 'https://www.mit.edu/~amini/LICENSE.md'
+    name: MIT License
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /auth/signup:
+    post:
+      summary: User Signup
+      description: Create a new account on this endpoint and generate API key for user
+      operationId: post-auth-signup
+      requestBody:
+        description: The new user data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+            examples:
+              Example 1:
+                value:
+                  username: janedoe
+                  email: jane@doe.com
+                  password: janedoe
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      userAPIKey:
+                        type: string
+                      Note:
+                        type: string
+                      loginToken:
+                        type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  errorCode:
+                    type: integer
+                  data:
+                    type: object
+      servers:
+        - url: 'http://localhost:3000'
+  /auth/login:
+    post:
+      summary: User Login
+      description: Log in to get JWT token for generating a new API key
+      operationId: post-auth-login
+      requestBody:
+        description: The user's username and password
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      loginToken:
+                        type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  errorCode:
+                    type: integer
+                  data:
+                    type: object
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                  errorCode:
+                    type: integer
+      servers:
+        - url: 'http://localhost:3000'
+components:
+  securitySchemes:
+    Bearer:
+      type: apiKey
+      description: The API key should be added in the Authorization Bearer header
+      name: API Key
+      in: header
+  schemas:
+    User:
+      type: object
+      title: User
+      description: The Model for Any User Created
+      properties:
+        username:
+          type: string
+          minLength: 3
+          examples:
+            - Jane
+        password:
+          type: string
+          format: password
+          minLength: 3
+          examples:
+            - janedoe
+        email:
+          type: string
+          format: email
+          examples:
+            - janedoe@gmail.com
+        APIKey:
+          type: string
+          examples:
+            - $2b$10$fYxI13LEA4gh91ipJFbbo.5SIwZUJLS/y0LmJxEwpxPdkBr0mZdvq
+      required:
+        - username
+        - password
+      examples:
+        - username: Janedoe
+          email: jane@doe.com
+          password: janedoe
