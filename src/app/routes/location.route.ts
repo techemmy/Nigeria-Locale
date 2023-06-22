@@ -32,8 +32,8 @@ locationAPIRouter.get(
 
 locationAPIRouter.get(
   '/search',
-  cacheDataMiddleware,
   confirmAPIKeyMiddleware,
+  cacheDataMiddleware,
   locationController.search
 )
 
