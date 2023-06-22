@@ -19,9 +19,7 @@ afterAll(async () => {
 
 describe(`GET ${PATH}`, () => {
   test('should successfully get a list of the regions', async () => {
-    const response = await request(app)
-      .get(PATH)
-      .set('Authorization', `Bearer ${APIKey}`)
+    const response = await request(app).get(PATH).set('X-Api-Key', `${APIKey}`)
     expect(response.status).toBe(200)
     expect(response.body.success).toBeTruthy()
     expect(response.body.data.size).toBeGreaterThan(0)
@@ -29,9 +27,7 @@ describe(`GET ${PATH}`, () => {
   })
 
   test('should get a list of regions with a valid json response', async () => {
-    const response = await request(app)
-      .get(PATH)
-      .set('Authorization', `Bearer ${APIKey}`)
+    const response = await request(app).get(PATH).set('X-Api-Key', `${APIKey}`)
 
     expect(response.status).toBe(200)
     expect(response.body.success).toBeTruthy()

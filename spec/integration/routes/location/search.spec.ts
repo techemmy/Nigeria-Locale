@@ -29,7 +29,7 @@ describe(`GET ${PATH}`, () => {
   test('should search for a region based on query url parameter value', async () => {
     const response = await request(app)
       .get(PATH + `?category=region&query=South+East`)
-      .set('Authorization', `Bearer ${APIKey}`)
+      .set('X-Api-Key', `${APIKey}`)
     expect(response.status).toBe(200)
     expect(response.body.success).toBeTruthy()
     expect(response.body.data.size).toBeGreaterThan(0)
@@ -40,7 +40,7 @@ describe(`GET ${PATH}`, () => {
   test('should search for a state based on query url parameter value', async () => {
     const response = await request(app)
       .get(PATH + `?category=state&query=Ondo`)
-      .set('Authorization', `Bearer ${APIKey}`)
+      .set('X-Api-Key', `${APIKey}`)
     expect(response.status).toBe(200)
     expect(response.body.success).toBeTruthy()
     expect(response.body.data.size).toBe(1)
@@ -51,7 +51,7 @@ describe(`GET ${PATH}`, () => {
   test('should search for a local government area based on query url parameter value', async () => {
     const response = await request(app)
       .get(PATH + `?category=lga&query=${localGovernmentAreas[0]}`)
-      .set('Authorization', `Bearer ${APIKey}`)
+      .set('X-Api-Key', `${APIKey}`)
     expect(response.status).toBe(200)
     expect(response.body.success).toBeTruthy()
     expect(response.body.data.size).toBe(1)
@@ -60,9 +60,7 @@ describe(`GET ${PATH}`, () => {
   })
 
   test('should fail to peform search if category url parameter is not found', async () => {
-    const response = await request(app)
-      .get(PATH)
-      .set('Authorization', `Bearer ${APIKey}`)
+    const response = await request(app).get(PATH).set('X-Api-Key', `${APIKey}`)
     expect(response.status).toBe(400)
     expect(response.body.success).toBeFalsy()
     expect(response.body.errorCode).toBe(400)
@@ -72,7 +70,7 @@ describe(`GET ${PATH}`, () => {
   test('should return all the states if no query url paramter is passed on region category search', async () => {
     const response = await request(app)
       .get(PATH + `?category=region`)
-      .set('Authorization', `Bearer ${APIKey}`)
+      .set('X-Api-Key', `${APIKey}`)
     expect(response.status).toBe(200)
     expect(response.body.success).toBeTruthy()
     expect(response.body.data.size).toBe(nigeriaLocations.all().length)
@@ -82,7 +80,7 @@ describe(`GET ${PATH}`, () => {
   test('should return all the states if no query url paramter is passed on state category search', async () => {
     const response = await request(app)
       .get(PATH + `?category=state`)
-      .set('Authorization', `Bearer ${APIKey}`)
+      .set('X-Api-Key', `${APIKey}`)
     expect(response.status).toBe(200)
     expect(response.body.success).toBeTruthy()
     expect(response.body.data.size).toBe(nigeriaLocations.all().length)
@@ -92,7 +90,7 @@ describe(`GET ${PATH}`, () => {
   test('should return all the states if no query url paramter is passed on lga category search', async () => {
     const response = await request(app)
       .get(PATH + `?category=lga`)
-      .set('Authorization', `Bearer ${APIKey}`)
+      .set('X-Api-Key', `${APIKey}`)
     expect(response.status).toBe(200)
     expect(response.body.success).toBeTruthy()
     expect(response.body.data.size).toBe(localGovernmentAreas.length)
