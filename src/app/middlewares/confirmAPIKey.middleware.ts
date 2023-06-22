@@ -6,9 +6,9 @@ export default async function (
   res: Response,
   next: NextFunction
 ) {
-  const authHeader = req.headers.authorization
+  let APIKey = req.headers['x-api-key']?.toString()
 
-  if (!authHeader?.includes('Bearer')) {
+  if (!APIKey) {
     return res.status(401).json({
       success: false,
       message:
@@ -18,7 +18,7 @@ export default async function (
     })
   }
 
-  const APIKey = authHeader.split('Bearer')[1].trim()
+  APIKey = APIKey.trim()
   const keyExists = await userModel.findOne({ APIKey })
 
   if (!keyExists) {
