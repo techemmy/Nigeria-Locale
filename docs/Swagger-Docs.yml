@@ -1233,6 +1233,8 @@ paths:
           description: The name to search for in a category
           schema:
             type: string
+      requestBody:
+        content: {}
       responses:
         '200':
           description: OK
@@ -1408,9 +1410,10 @@ tags:
 components:
   securitySchemes:
     APIKey:
-      type: http
-      description: It should contain the one-time API key generated for the user when they signup or generate a new key
-      scheme: bearer
+      type: apiKey
+      description: It should contain the user's API key. Create a new account or regenerate key to get one
+      name: X-Api-Key
+      in: header
     LoginToken:
       type: http
       description: It should contain the token given to you when you log in.
