@@ -9,7 +9,7 @@ describe('Make sure server starts and with the right configuration', () => {
 
   test('app server returns the right content type', async () => {
     const response = await request(app).get('/')
-    expect(response.headers['content-type']).toContain('application/json')
+    expect(response.headers['content-type']).toContain('text/html')
   })
 
   test('app server has default rate-limit set', async () => {
