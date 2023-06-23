@@ -6,7 +6,7 @@ const JWT_Secret: string = process.env.JWT_SECRET ?? ''
 const REDIS_URL =
   process.env.NODE_ENV === 'development'
     ? process.env.REDIS_DEV_URL ?? ''
-    : process.env.REDIS_PRDD_URL ?? ''
+    : process.env.REDIS_PROD_URL ?? ''
 
 export default {
   PORT,
