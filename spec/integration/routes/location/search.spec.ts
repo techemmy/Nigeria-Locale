@@ -11,7 +11,7 @@ let localGovernmentAreas: string[]
 
 beforeAll(async () => {
   await connectDB()
-  await connectRedis()
+  await connectRedis(undefined)
   APIKey = (await request(app).post('/auth/signup').send(users[0])).body.data
     .userAPIKey
   localGovernmentAreas = nigeriaLocations

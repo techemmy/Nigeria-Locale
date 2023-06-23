@@ -17,8 +17,9 @@ export function connectMongoDB(MONGO_URL: string): void {
 }
 
 export async function connectRedis(
-  REDIS_URL: string
+  REDIS_URL: string | undefined
 ): Promise<redis.RedisClientType> {
+  // redis connects to default host and password if url is undefined
   redisClient = redis.createClient({ url: REDIS_URL })
 
   redisClient.on('error', (error: Error) => logger.error(`Redis: ${error}`))
