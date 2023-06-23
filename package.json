@@ -4,7 +4,7 @@
   "description": "API shows you all of Nigeria’s regions, states, and local government areas(LGAs)",
   "scripts": {
     "start": "TZ='UTC' node dist/server.js",
-    "build": "npx tsc",
+    "build": "tsc",
     "dev": "TZ='UTC' nodemon src/server.ts",
     "lint": "eslint src/**/*.ts",
     "format": "eslint src/**/*.ts --fix",
