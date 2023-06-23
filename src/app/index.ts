@@ -12,7 +12,7 @@ import errorHandlerMiddleware from './middlewares/errorHandler.middleware'
 import loggerMiddleware from './middlewares/logger.middleware'
 import rateLimiterMiddleware from './middlewares/rateLimiter.middleware'
 import swaggerDocument from './utils/loadSwaggerDocs.util'
-import { SwaggerDocRequest } from './typings/expressResponses'
+import loadServerUrlIntoSwaggerMiddleware from './middlewares/loadServerUrlIntoSwagger.middleware'
 
 require('dotenv').config()
 
@@ -20,11 +20,7 @@ const app: Express = express()
 
 app.use(
   '/api-docs',
-  function (req: SwaggerDocRequest, res: Response, next: NextFunction) {
-    swaggerDocument.host = req.get('host')
-    req.swaggerDoc = swaggerDocument
-    next()
-  },
+  loadServerUrlIntoSwaggerMiddleware,
   swaggerUi.serveFiles(swaggerDocument),
   swaggerUi.setup()
 )
