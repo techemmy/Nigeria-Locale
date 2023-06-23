@@ -37,8 +37,6 @@
 ---
 Nigeria Locale is a developer tool for anyone who needs to know Nigeria, geographically at least. The API shows you all of Nigeria’s regions, states, and local government areas(LGAs). Locale is looking to be a very useful tool for the thousands of businesses building for Nigeria’s 200M+ population size.
 
-Use the `BLANK_README.md` to get started.
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
