@@ -82,6 +82,7 @@ Make sure you have [Node.Js](https://nodejs.org/en) and [Redis](https://redis.io
    npm install
    ```
 4. Configure the environment variables. Fill in the environment variables appriopriately
+   - You can generate a random string for the `JWT_SECRET` variable using this command: `openssl rand -hex 32`
    ```sh
    cp .example.env .env
    ```
