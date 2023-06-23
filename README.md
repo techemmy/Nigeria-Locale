@@ -46,6 +46,7 @@ Nigeria Locale is a developer tool for anyone who needs to know Nigeria, geograp
 * [![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/en/) - JavaScript runtime environment
 * [![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)](https://expressjs.com/) - Web framework for Node.js
 * [![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/) - NoSQL database
+* [![Redis](https://img.shields.io/badge/redis-%23DD0031.svg?style=for-the-badge&logo=redis&logoColor=white)](https://redis.io/) - In-memory data structure store
 * [![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)](https://jwt.io/) - Tool for generating and verifying tokens based on credentials
 - [![Mongoose](https://img.shields.io/badge/Mongoose-%234ea94b.svg?style=for-the-badge&logo=mongoose)](https://mongoosejs.com/) - MongoDB object modeling for Node.js
 - [![Jest](https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white)](https://jestjs.io/) - JavaScript testing framework
@@ -64,7 +65,7 @@ This is an example of how you may give instructions on setting up your project l
 To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
-Make sure you have [Node.Js](https://nodejs.org/en) installed.
+Make sure you have [Node.Js](https://nodejs.org/en) and [Redis](https://redis.io/docs/getting-started/) installed.
 
 ### Installation
 
@@ -84,7 +85,11 @@ Make sure you have [Node.Js](https://nodejs.org/en) installed.
    ```sh
    cp .example.env .env
    ```
-5. Run the development server
+5. Start the redis server
+  ```sh
+   redis-server
+  ```
+6. Run the development server
    ```sh
    npm run dev
    ```
