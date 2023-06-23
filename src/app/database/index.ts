@@ -16,8 +16,10 @@ export function connectMongoDB(MONGO_URL: string): void {
   })
 }
 
-export async function connectRedis() {
-  redisClient = redis.createClient()
+export async function connectRedis(
+  REDIS_URL: string
+): Promise<redis.RedisClientType> {
+  redisClient = redis.createClient({ url: REDIS_URL })
 
   redisClient.on('error', (error: Error) => logger.error(`Redis: ${error}`))
 

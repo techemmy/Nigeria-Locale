@@ -6,7 +6,7 @@ import logger from './app/utils/logger.util'
 connectMongoDB(config.MONGO_URI)
 
 void (async () => {
-  await connectRedis()
+  await connectRedis(config.REDIS_URL)
 })()
 
 app.listen(config.PORT, () => {
