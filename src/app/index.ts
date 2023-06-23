@@ -31,11 +31,11 @@ app.use(bodyParser.urlencoded({ extended: true }))
 passportMiddleware(passport)
 
 app.get('/', (req: Request, res: Response) => {
-  res.status(200).json({
-    success: true,
-    message: `Navigate to http://${req.headers.host}/api-docs for more info`,
-    data: {}
-  })
+  res
+    .status(200)
+    .send(
+      `Navigate to the ˇ<a href='http://${req.headers.host}/api-docs'>documentation</a> for more info`
+    )
 })
 
 app.use('/auth', authRouter)
