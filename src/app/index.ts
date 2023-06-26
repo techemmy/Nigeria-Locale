@@ -34,7 +34,7 @@ app.get('/', (req: Request, res: Response) => {
   res
     .status(200)
     .send(
-      `Navigate to the ˇ<a href='http://${req.headers.host}/api-docs'>documentation</a> for more info`
+      `Navigate to the <a href='http://${req.headers.host}/api-docs'>documentation</a> for more info`
     )
 })
 
