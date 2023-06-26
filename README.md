@@ -104,7 +104,7 @@ Make sure you have [Node.Js](https://nodejs.org/en) and [Redis](https://redis.io
 ## Usage
 
 * Online documentation - Visit [here](https://emmanuel.stoplight.io/docs/nigeria-locale/branches/main/dlhz390kuiehu-nigeria-locale)
-* Swagger documentation can be found at the `/api-docs` route of the localhost development server or hosted app
+* Swagger documentation can be found at the [`/api-docs`](http://nigeria-locale.onrender.com/api-docs) route of the localhost development server or hosted app
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
