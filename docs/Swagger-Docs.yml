@@ -77,6 +77,13 @@ paths:
                     type: integer
                   data:
                     type: object
+              examples:
+                Example 1:
+                  value:
+                    success: false
+                    message: '"password" length must be at least 3 characters long'
+                    errorCode: 400
+                    data: {}
       security: []
   /auth/login:
     post:
@@ -92,10 +99,14 @@ paths:
             schema:
               type: object
               properties:
-                username:
+                success:
+                  type: boolean
+                message:
                   type: string
-                password:
-                  type: string
+                data:
+                  type: object
+                errorCode:
+                  type: integer
             examples:
               Example 1:
                 value:
@@ -140,6 +151,13 @@ paths:
                     type: integer
                   data:
                     type: object
+              examples:
+                Example 1:
+                  value:
+                    success: false
+                    message: '"username" length must be at least 3 characters long'
+                    errorCode: 400
+                    data: {}
         '401':
           description: Unauthorized
           content:
@@ -155,6 +173,13 @@ paths:
                     type: object
                   errorCode:
                     type: integer
+              examples:
+                Example 1:
+                  value:
+                    success: false
+                    message: Invalid credentials
+                    data: {}
+                    errorCode: 401
       security: []
   /api/v1/get-new-key:
     get:
