@@ -142,13 +142,3 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
-<!-- CONTACT -->
-## Contact
-
-Your Name - [@ETOloyede](https://twitter.com/ETOloyede) - email@example.com
-
-Project Link: [https://github.com/techemmy/project](https://github.com/techemmy/nigeria-locale)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
